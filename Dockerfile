@@ -11,7 +11,7 @@ COPY . .
 
 # Install pip requirements
 RUN pip install --upgrade pip
-RUN pip install -r requirements.txt
+RUN pip install django==3.2
 
 # Run DB migrations
 RUN python manage.py migrate
