@@ -1,7 +1,9 @@
 FROM python:3.13-slim
 
-# Install system dependencies (including distutils)
-RUN apt-get update && apt-get install -y python3-distutils gcc
+# ✅ Ensure Python looks in the correct place and install build tools
+RUN apt-get update && \
+    apt-get install -y python3-distutils python3-venv gcc && \
+    ln -s /usr/lib/python3.13/distutils /usr/local/lib/python3.13/distutils
 
 # Set working directory
 WORKDIR /data
@@ -9,7 +11,7 @@ WORKDIR /data
 # Copy project files
 COPY . .
 
-# Install pip requirements
+# Upgrade pip and install dependencies
 RUN pip install --upgrade pip
 RUN pip install django==3.2
 
